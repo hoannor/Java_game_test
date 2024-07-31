@@ -7,6 +7,9 @@ import java.awt.*;
 public class GameFrame  extends JFrame {
     public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 600;
+
+    GamePanel gamePanel;
+
     public GameFrame(){
 
         Toolkit toolkit = this.getToolkit(); // lay size cua man hinh may tinh
@@ -15,11 +18,21 @@ public class GameFrame  extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // dat default bang nut tat frame
 
+        gamePanel = new GamePanel();
+        add(gamePanel);
+        gamePanel.startGame();
+
+    }
+
+    public void startGame()
+    {
+        gamePanel.startGame();
     }
 
     public static void main(String args[])
     {
         GameFrame gameFrame = new GameFrame();
         gameFrame.setVisible(true);// show ra cua frame game
+        gameFrame.startGame();
     }
 }
