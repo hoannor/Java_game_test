@@ -1,11 +1,13 @@
-package userinterface;
+package src.userinterface;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
@@ -14,16 +16,26 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     private inputManager inputManager;
 
-    public GamePanel()
-    {
+//    BufferedImage image;
+//    BufferedImage subImage;
+
+    public GamePanel() {
         inputManager = new inputManager();
+//        try {
+//            image = ImageIO.read(new File("data/megasprite.png"));
+//            subImage = image.getSubimage(2, 5, 30, 100);
+//        } catch (IOException ex) {
+//            ex.printStackTrace(); // in ra loi tren console
+//        }
     }
 
     @Override
     public  void paint(Graphics g)
     {
-        g.setColor(Color.red);
+        g.setColor(Color.white);
         g.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT); // tao ra mot vung contain trong frame
+
+//        g.drawImage(subImage, 10, 10, this); // ve ra image
     }
 
     public void startGame()
@@ -46,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         beginTime = System.nanoTime();
 
-        int a = 1;
+//        int a = 1;
 //        System.out.println("GamePanel thread start");
         while(isRunning)
         {
