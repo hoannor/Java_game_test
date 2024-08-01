@@ -20,8 +20,8 @@ public class GameFrame  extends JFrame {
 
         gamePanel = new GamePanel();
         add(gamePanel);
-        gamePanel.startGame();
-
+//        gamePanel.startGame();
+        this.addKeyListener(gamePanel);
     }
 
     public void startGame()

@@ -2,13 +2,23 @@ package userinterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     private Thread thread;
     private boolean isRunning;
+
+    private inputManager inputManager;
+
+    public GamePanel()
+    {
+        inputManager = new inputManager();
+    }
+
     @Override
     public  void paint(Graphics g)
     {
@@ -40,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
 //        System.out.println("GamePanel thread start");
         while(isRunning)
         {
-            System.out.println("a = " + (a++));
+//            System.out.println("a = " + (a++));
             // update game
             // render game
 
@@ -57,5 +67,20 @@ public class GamePanel extends JPanel implements Runnable{
             beginTime = System.nanoTime();
 
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) { // callback method: cac phuong thuc duoc mot lop khac goi
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        inputManager.processKeyPressed(e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        inputManager.processKeyRelease(e.getKeyCode());
     }
 }
