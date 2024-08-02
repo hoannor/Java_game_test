@@ -3,6 +3,9 @@ package src.effect;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+// tao ra nhung buoc hinh nho tu trong buoc hinh lon
+// tu cac buoc hinh nho nay cho thay doi lien tuc de co the tao ra cac animation
+
 public class FrameImage {
     private String name;
     private BufferedImage image;
