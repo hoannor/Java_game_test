@@ -1,5 +1,8 @@
 package src.userinterface;
 
+import src.effect.Animation;
+import src.effect.FrameImage;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -18,15 +21,29 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 //    BufferedImage image;
 //    BufferedImage subImage;
+    FrameImage frame1, frame2, frame3;
+    Animation anim;
 
     public GamePanel() {
         inputManager = new inputManager();
-//        try {
-//            image = ImageIO.read(new File("data/megasprite.png"));
-//            subImage = image.getSubimage(2, 5, 30, 100);
-//        } catch (IOException ex) {
-//            ex.printStackTrace(); // in ra loi tren console
-//        }
+
+        try {
+            BufferedImage image = ImageIO.read(new File("data/megasprite.png"));
+            BufferedImage image1 = image.getSubimage(529, 38, 100, 100);
+            frame1 = new FrameImage("frame1", image1);
+            BufferedImage image2 = image.getSubimage(616, 38, 100, 100);
+            frame2 = new FrameImage("frame2", image2);
+            BufferedImage image3 = image.getSubimage(700, 38, 100, 100);
+            frame3 = new FrameImage("frame3", image3);
+
+            anim = new Animation();
+            anim.add(frame1, 200 * 1000000);
+            anim.add(frame2, 200 * 1000000);
+            anim.add(frame3, 200 * 1000000);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // in ra loi tren console
+        }
     }
 
     @Override
@@ -35,6 +52,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g.setColor(Color.white);
         g.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT); // tao ra mot vung contain trong frame
 
+        Graphics2D g2 = (Graphics2D) g;
+
+        anim.Update(System.nanoTime());
+        anim.draw(100, 130, g2);
 //        g.drawImage(subImage, 10, 10, this); // ve ra image
     }
 
@@ -65,6 +86,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 //            System.out.println("a = " + (a++));
             // update game
             // render game
+
+            repaint();
 
             long deltaTime = System.nanoTime() - beginTime; // khoang thoi gian thuc thi game
             sleepTime = period - deltaTime;
