@@ -1,7 +1,10 @@
 package src.userinterface;
 
+import src.effect.CacheDataLoader;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 // khung ban dau cua ung dung
 public class GameFrame  extends JFrame {
@@ -17,6 +20,14 @@ public class GameFrame  extends JFrame {
         this.setBounds((dimension.width - SCREEN_WIDTH) / 2, (dimension.height - SCREEN_HEIGHT) / 2, SCREEN_WIDTH, SCREEN_HEIGHT); // xet toa do cho ung dung sao cho o giua man hinh bang cach lay trung binh cong
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // dat default bang nut tat frame
+
+        try
+        {
+            CacheDataLoader.getInstance().LoadData();
+        } catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
 
         gamePanel = new GamePanel();
         add(gamePanel);

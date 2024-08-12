@@ -18,6 +18,12 @@ public class FrameImage {
 
     // note JAVA khong co con tro
 
+    FrameImage()
+    {
+        image = null;
+        name = null;
+    }
+
     public FrameImage(FrameImage frameImage) // copy structor la tao ra mot ham khoi tao voi 1 tham so khac nhung van khoi tao ra FrameImage do
     {
         image = new BufferedImage(frameImage.getImageWidth(), frameImage.getImageHeight(), frameImage.getImage().getType());
