@@ -1,6 +1,7 @@
 package src.userinterface;
 
 import src.effect.Animation;
+import src.effect.CacheDataLoader;
 import src.effect.FrameImage;
 
 import javax.imageio.ImageIO;
@@ -19,44 +20,50 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     private inputManager inputManager;
 
+    private BufferedImage bufImage;
+    private Graphics2D bufG2D;
+
+//    FrameImage frame1;
+
 //    BufferedImage image;
 //    BufferedImage subImage;
-    FrameImage frame1, frame2, frame3;
-    Animation anim;
+//    FrameImage frame1, frame2, frame3;
+//    Animation anim;
 
     public GamePanel() {
         inputManager = new inputManager();
 
-        try {
-            BufferedImage image = ImageIO.read(new File("data/megasprite.png"));
-            BufferedImage image1 = image.getSubimage(529, 38, 100, 100);
-            frame1 = new FrameImage("frame1", image1);
-            BufferedImage image2 = image.getSubimage(616, 38, 100, 100);
-            frame2 = new FrameImage("frame2", image2);
-            BufferedImage image3 = image.getSubimage(700, 38, 100, 100);
-            frame3 = new FrameImage("frame3", image3);
+        bufImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    }
 
-            anim = new Animation();
-            anim.add(frame1, 200 * 1000000);
-            anim.add(frame2, 200 * 1000000);
-            anim.add(frame3, 200 * 1000000);
+    public void RenderGame ()
+    {
+        if(bufImage == null)
+        {
+            bufImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        }
 
-        } catch (IOException ex) {
-            ex.printStackTrace(); // in ra loi tren console
+        if(bufImage != null)
+        {
+            bufG2D = (Graphics2D) bufImage.getGraphics();
+        }
+
+        if(bufG2D != null)
+        {
+            bufG2D.setColor(Color.white);
+            bufG2D.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
+
         }
     }
+
 
     @Override
     public  void paint(Graphics g)
     {
-        g.setColor(Color.white);
-        g.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT); // tao ra mot vung contain trong frame
+//        g.setColor(Color.white);
+//        g.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT); // tao ra mot vung contain trong frame
+        g.drawImage(bufImage, 0, 0, this);
 
-        Graphics2D g2 = (Graphics2D) g;
-
-        anim.Update(System.nanoTime());
-        anim.draw(100, 130, g2);
-//        g.drawImage(subImage, 10, 10, this); // ve ra image
     }
 
     public void startGame()
@@ -85,8 +92,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         {
 //            System.out.println("a = " + (a++));
             // update game
-            // render game
-
+            RenderGame();
             repaint();
 
             long deltaTime = System.nanoTime() - beginTime; // khoang thoi gian thuc thi game
