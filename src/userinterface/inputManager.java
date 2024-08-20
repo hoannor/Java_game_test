@@ -5,6 +5,13 @@ import java.awt.event.KeyEvent;
 
 // xu li cac tinh huong nhan nut cho game
 public class inputManager {
+
+    private GamePanel gamePanel;
+
+    public inputManager(GamePanel gamePanel)
+    {
+        this.gamePanel = gamePanel;
+    }
     public void processKeyPressed(int keyCode)
     {
         switch (keyCode)
@@ -17,10 +24,12 @@ public class inputManager {
                 System.out.println("You press DOWN");
                 break;
             case KeyEvent.VK_LEFT:
-                System.out.println("You press LEFT");
+//                System.out.println("You press LEFT");
+                gamePanel.megaman.setSpeedX(-5);
                 break;
             case KeyEvent.VK_RIGHT:
-                System.out.println("You press RIGHT");
+//                System.out.println("You press RIGHT");
+                gamePanel.megaman.setSpeedX(5);
                 break;
             case KeyEvent.VK_ENTER: // enter de co the vao game va chon lua trong menugame
                 System.out.println("You press ENTER");

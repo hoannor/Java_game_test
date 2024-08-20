@@ -3,6 +3,7 @@ package src.userinterface;
 import src.effect.Animation;
 import src.effect.CacheDataLoader;
 import src.effect.FrameImage;
+import src.gameobject.Megaman;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private BufferedImage bufImage;
     private Graphics2D bufG2D;
 
+    Megaman megaman = new Megaman(300, 300, 100, 100, 0.1f);
+
 //    FrameImage frame1;
 
 //    BufferedImage image;
@@ -31,9 +34,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 //    Animation anim;
 
     public GamePanel() {
-        inputManager = new inputManager();
+        inputManager = new inputManager(this);
 
         bufImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    }
+
+    public void UpdateGame()
+    {
+        megaman.update();
     }
 
     public void RenderGame ()
@@ -53,6 +61,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             bufG2D.setColor(Color.white);
             bufG2D.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
 
+            // draw game here
+            megaman.draw(bufG2D);
         }
     }
 
@@ -91,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         while(isRunning)
         {
 //            System.out.println("a = " + (a++));
-            // update game
+            UpdateGame();
             RenderGame();
             repaint();
 
