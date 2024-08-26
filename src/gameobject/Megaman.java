@@ -32,6 +32,12 @@ public class Megaman {
     {
         setPosX(getPosX() + speedX); // thay doi vi tri bang cach cong 1 luong cua toc do
 
+        if(getPosY() >= 400) setPosY(400);
+        else {
+            setPosY(getPosY() + speedY);
+            setSpeedY(getSpeedY() + mass);
+        }
+
     }
 
     public void draw(Graphics2D g2)
