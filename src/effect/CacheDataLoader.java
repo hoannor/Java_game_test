@@ -15,10 +15,12 @@ public class CacheDataLoader {
 
     private String framefile = "data/frame.txt";
     private String animationfile = "data/animation.txt";
+    private String physmapfile = "data/phys_map.txt";
 
     // dung bang hashtable de luu 1 bang theo gia tri cap <key, value>
     private Hashtable<String, FrameImage> frameImages;
     private Hashtable<String, Animation> animations;
+    private int[][] phys_map;
     private CacheDataLoader() { /// de private de vo hieu hoa ham constructor de khong the tao 1 lop co thuc the bang cau lenh ne
     }
 
@@ -36,6 +38,49 @@ public class CacheDataLoader {
     {
         LoadFrame();
         LoadAnimation();
+        LoadPhysMap();
+    }
+
+    public int[][] getPhysicalMap()
+    {
+        return instance.phys_map;
+    }
+
+    public void LoadPhysMap() throws IOException
+    {
+        FileReader fr = new FileReader(physmapfile);
+        BufferedReader br = new BufferedReader(fr);
+
+        String line = null;
+
+        line = br.readLine();
+        int numberOfRows = Integer.parseInt(line);
+        line = br.readLine();
+        int numberOfColumns = Integer.parseInt(line);
+
+        instance.phys_map = new int[numberOfRows][numberOfColumns];
+
+        for(int i = 0; i < numberOfRows; i++)
+        {
+            line = br.readLine();
+            String[] str = line.split(" ");
+            for(int j = 0; j < numberOfColumns; j++)
+            {
+                instance.phys_map[i][j] = Integer.parseInt(str[j]);
+            }
+        }
+
+        for(int i = 0; i < numberOfRows; i++)
+        {
+            for(int j = 0; j < numberOfColumns; j++)
+            {
+                System.out.print(" " + instance.phys_map[i][j]);
+            }
+            System.out.println();
+        }
+
+        br.close();
+
     }
 
     public void LoadFrame() throws IOException
